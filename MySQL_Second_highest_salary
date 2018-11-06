@@ -1,0 +1,27 @@
+CREATE TABLE `tbl_employee` (
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(200) NOT NULL,
+	`salary` INT UNSIGNED NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+
+INSERT INTO `tbl_employee` (`name`, `salary`) VALUES ('emp1', 3000);
+
+INSERT INTO `tbl_employee` (`name`, `salary`) VALUES ('emp2', 5000);
+
+INSERT INTO `tbl_employee` (`name`, `salary`) VALUES ('emp3', 8000);
+
+INSERT INTO `tbl_employee` (`name`, `salary`) VALUES ('emp4', 12000);
+
+
+-- sol1.
+ select * from tbl_employee;
+select MAX(em.salary) from tbl_employee em where em.salary < (  select MAX(salary) from tbl_employee);
+
+--sol2.
+  select * from (
+   select DISTINCT salary from tbl_employee  ORDER BY  salary DESC LIMIT  3
+   )
+   result ORDER BY salary LIMIT 1
